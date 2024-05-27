@@ -4,6 +4,7 @@ import Header from "./components/Header"
 import Home from "./Pages/Home"
 import About from "./Pages/About"
 import Navbar from "./components/Navbar"
+import MovieDetails from "./Pages/MovieDetails"
 
 function App() {
 
@@ -25,6 +26,16 @@ function App() {
         <Header/>
         <Navbar/>
         <About/>
+        </>
+      )
+    },
+    {
+      path:'/movie/:id',
+      element:(
+        <>
+        <Header/>
+        <Navbar/>
+        <MovieDetails/>
         </>
       )
     }
