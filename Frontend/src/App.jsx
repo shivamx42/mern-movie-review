@@ -3,6 +3,7 @@ import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import Header from "./components/Header"
 import Home from "./Pages/Home"
 import About from "./Pages/About"
+import Navbar from "./components/Navbar"
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       element:(
         <>
         <Header/>
+        <Navbar/>
         <Home/>
         </>
       )
@@ -21,6 +23,7 @@ function App() {
       element:(
         <>
         <Header/>
+        <Navbar/>
         <About/>
         </>
       )

@@ -12,10 +12,9 @@ export default function Header() {
       </div>
       <div className='flex items-center gap-4'>
         <Link to="/" className='flex gap-1 items-center'>
-          <span className='text-2xl font-bold bg-amber-500 py-1 px-2 rounded-lg'>
-            IMDb
+          <span className='text-lg font-bold bg-slate-300 py-1 px-2 rounded-lg'>
+          FlickFusion
           </span>
-          <span className='text-xl hidden sm:inline'>Clone</span>
         </Link>
       </div>
     </div>
