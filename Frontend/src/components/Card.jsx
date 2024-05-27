@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { FiThumbsUp } from 'react-icons/fi';
 
 export default function Card({ movie }) {
     return (
@@ -8,7 +7,7 @@ export default function Card({ movie }) {
         <Link to={`/movie/${movie.id}`}>
           <img
             src={`https://image.tmdb.org/t/p/original/${
-              movie.backdrop_path || movie.poster_path
+              movie.backdrop_path 
             }`}
             width={500}
             height={300}
@@ -19,11 +18,7 @@ export default function Card({ movie }) {
             <h2 className='text-lg font-bold truncate'>
               {movie.title || movie.name}
             </h2>
-            <p className='flex items-center'>
-              {movie.release_date || movie.first_air_date}
-              <FiThumbsUp className='h-5 mr-1 ml-3' />
-              {movie.vote_count}
-            </p>
+            
           </div>
         </Link>
       </div>

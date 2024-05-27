@@ -1,10 +1,10 @@
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
 
-import Header from "./components/Header"
 import Home from "./Pages/Home"
 import About from "./Pages/About"
-import Navbar from "./components/Navbar"
 import MovieDetails from "./Pages/MovieDetails"
+import Layout from "./Pages/Layout"
+import SearchMovie from "./Pages/SearchMovie"
 
 function App() {
 
@@ -13,8 +13,7 @@ function App() {
       path:'/',
       element:(
         <>
-        <Header/>
-        <Navbar/>
+        <Layout/>
         <Home/>
         </>
       )
@@ -23,8 +22,7 @@ function App() {
       path:'/about',
       element:(
         <>
-        <Header/>
-        <Navbar/>
+        <Layout/>
         <About/>
         </>
       )
@@ -33,9 +31,17 @@ function App() {
       path:'/movie/:id',
       element:(
         <>
-        <Header/>
-        <Navbar/>
+        <Layout/>
         <MovieDetails/>
+        </>
+      )
+    },
+    {
+      path:'/search/:searchTerm',
+      element:(
+        <>
+        <Layout/>
+        <SearchMovie/>
         </>
       )
     }
