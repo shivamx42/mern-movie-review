@@ -1,6 +1,6 @@
 export default function About() {
     return (
-      <div className='max-w-6xl mx-auto p-3 space-y-4'>
+      <div className='max-w-6xl mx-auto p-3 space-y-4 min-h-screen'>
         <h1 className='text-2xl font-medium text-amber-600'>About</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias enim possimus repellendus exercitationem nesciunt eligendi quis aliquid deleniti iure, reprehenderit praesentium, suscipit itaque perspiciatis rerum amet, dolores aspernatur sed voluptatum in ex dolorum cum eos! Eligendi molestias officiis saepe, architecto earum quisquam necessitatibus reiciendis? Veniam, dolorem. Ipsam deleniti illum facere.
