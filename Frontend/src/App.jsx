@@ -5,6 +5,7 @@ import About from "./Pages/About"
 import MovieDetails from "./Pages/MovieDetails"
 import Layout from "./Pages/Layout"
 import SearchMovie from "./Pages/SearchMovie"
+import Account from "./Pages/Account"
 
 function App() {
 
@@ -42,6 +43,14 @@ function App() {
         <>
         <Layout/>
         <SearchMovie/>
+        </>
+      )
+    },
+    {
+      path:'/account',
+      element:(
+        <>
+        <Account/>
         </>
       )
     }
