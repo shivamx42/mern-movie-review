@@ -9,6 +9,7 @@ export default function Home() {
   const key = import.meta.env.VITE_TMDB_API;
   const genre=searchParams.get("genre") || "fetchTrending";
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {

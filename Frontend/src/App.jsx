@@ -6,6 +6,9 @@ import MovieDetails from "./Pages/MovieDetails"
 import Layout from "./Pages/Layout"
 import SearchMovie from "./Pages/SearchMovie"
 import Account from "./Pages/Account"
+import PrivateRoute from "./components/PrivateRoute"
+import ProfileComplete from "./components/ProfileComplete"
+
 
 function App() {
 
@@ -53,6 +56,13 @@ function App() {
         <Account/>
         </>
       )
+    },
+    {
+      path:'/profile',
+      element:<PrivateRoute/>,
+      children:[
+        {path: "/profile",element: <ProfileComplete/>}
+      ]
     }
   ])
 

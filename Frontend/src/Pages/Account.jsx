@@ -73,10 +73,10 @@ export default function Account() {
     const data = await res.json();
     setLoading(false);
     if (res.status === 200) {
-      toast.success(data.message, {});
+      toast.success(data.message);
       dispatch(signInSuccess(data.userData));
     } else {
-      toast.error(data.message, {});
+      toast.error(data.message);
     }
   };
 
@@ -100,9 +100,9 @@ export default function Account() {
     }
   };
 
-  // if (isLoggedIn || isRegistered) {
-  //   return <Navigate to="/" replace={true} />;
-  // }
+  if (isLoggedIn || isRegistered) {
+    return <Navigate to="/" replace={true} />;
+  }
 
   return (
     <div className="relative flex items-center justify-center min-h-screen">
@@ -135,7 +135,7 @@ export default function Account() {
                 placeholder="Enter your email"
                 value={formData.email || ""}
                 onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-slate-700"
                 required
               />
             </div>
@@ -149,7 +149,7 @@ export default function Account() {
                 placeholder="Enter your password"
                 value={formData.password || ""}
                 onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-slate-700"
                 required
               />
             </div>
@@ -188,7 +188,7 @@ export default function Account() {
                 placeholder="Enter a username"
                 value={newFormData.userName || ""}
                 onChange={handleNewChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-slate-700"
                 required
               />
             </div>
@@ -202,7 +202,7 @@ export default function Account() {
                 placeholder="Enter your email"
                 value={newFormData.email || ""}
                 onChange={handleNewChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-slate-700"
                 required
               />
             </div>
@@ -216,7 +216,7 @@ export default function Account() {
                 placeholder="Enter a strong password"
                 value={newFormData.password || ""}
                 onChange={handleNewChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-slate-700"
                 required
               />
             </div>
