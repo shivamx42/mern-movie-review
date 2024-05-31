@@ -4,8 +4,11 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import { app } from '../firebase';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { updateUser } from '../redux/user/userSlice';
+import { updateUser,deleteOrLogoutUser } from '../redux/user/userSlice';
 import { ThreeCircles } from 'react-loader-spinner';
+import { FaHome } from "react-icons/fa";
+import { Link, useNavigate } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip'
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -22,13 +25,23 @@ export default function Profile() {
   const [message, setMessage] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleteDialogBox,setDeleteDialogBox]=useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (file) handleFileUpload(file);
   }, [file]);
 
-  const handleFileUpload = (file) => {
+  const handleFileUpload = async (file) => {
+    setMessage("");
+    setFilePerc(0);
+    setFileUploadError(false);
+    if (file.size >= 2*1024 * 1024) {
+      setFileUploadError(true);
+      setMessage('Only images less than 2 MB are allowed');
+      return;
+    }
+    
     setIsUploading(true);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -43,6 +56,7 @@ export default function Profile() {
       },
       (error) => {
         setFileUploadError(true);
+        setIsUploading(false);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -56,7 +70,7 @@ export default function Profile() {
   useEffect(() => {
     let timer;
     if (fileUploadError) {
-      setMessage('Image Must be less than 2 MB');
+      setMessage('Only images less than 2 MB are allowed');
     } else if (filePerc > 0 && filePerc < 100) {
       setMessage(`Uploading ${filePerc}%`);
     } else if (filePerc === 100) {
@@ -68,7 +82,7 @@ export default function Profile() {
     if (message) {
       timer = setTimeout(() => {
         setMessage('');
-      }, 5000);
+      }, 3000);
     }
 
     return () => clearTimeout(timer);
@@ -81,7 +95,7 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { userName, email, pic,password } = formData;
-    if (userName === currentUser.userName && email === currentUser.email && pic === currentUser.pic && password===""){
+    if (userName === currentUser.userName && email === currentUser.email && pic === currentUser.pic && !password){
       toast.info("Change at least one of the details!");
       return;
     }
@@ -104,11 +118,77 @@ export default function Profile() {
     }
   };
 
+  const navigate=useNavigate()
+
+  const handleDelete=async()=>{
+    
+    const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(res.status===200){
+      toast.success(data.message);
+      navigate("/", { replace: true });
+    }
+
+    
+    else{
+      toast.error(data.message);
+    }
+    
+    if(res.status===200) dispatch(deleteOrLogoutUser());
+  }
+
+  const handleLogout=async ()=>{
+    const res=await fetch("/api/auth/logout")
+    const data=await res.json();
+
+    if(res.status===200){
+      toast.success(data.message);
+      dispatch(deleteOrLogoutUser());
+    }
+
+    else toast(data.message);
+  }
+
   return (
-    <div className='p-4 w-80 sm:w-96 mx-auto md:w-[450px] mt-2 bg-white dark:bg-slate-700 rounded-xl shadow-md overflow-hidden border border-black'>
-      <h1 className='text-3xl font-semibold text-center my-7 text-slate-800 dark:text-slate-200'>
-        Profile
-      </h1>
+    <>
+    {deleteDialogBox?(<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-xl z-50">
+      <div className="bg-white rounded-lg p-8 shadow-md">
+        <h2 className="text-xl font-bold mb-4">Delete Note</h2>
+        <p className="mb-4">Are you sure you want to delete this note?</p>
+        <p className="mb-4 mx-10">This action cannot be undone!</p>
+        <div className="flex justify-end">
+          <button
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded mr-2"
+          >
+            Delete
+          </button>
+          <button
+            onClick={(e)=>setDeleteDialogBox(false)}
+            className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>) :
+    
+    (<div className='bg-slate-200 border-4 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 w-[350px] sm:w-96 md:w-[420px]'>
+      <div className='flex items-center justify-center'>
+        <h1 className='text-3xl font-semibold text-center my-7 text-slate-800'>
+          Profile
+        </h1>
+
+        <Link to={"/"} className=" translate-x-12 hover:cursor-pointer">
+          <div data-tooltip-id="my-tooltip" data-tooltip-content="Go to the home page" >
+            <FaHome />
+          </div>
+          <Tooltip id="my-tooltip" />
+        </Link>
+
+      </div>
       <form className='flex flex-col gap-6' onSubmit={handleSubmit}>
         <input type='file' ref={fileRef} hidden accept='image/*' onChange={(e) => { setFile(e.target.files[0]) }} />
         <img
@@ -124,7 +204,7 @@ export default function Profile() {
                 fileUploadError
                   ? 'text-red-700'
                   : filePerc > 0 && filePerc < 100
-                    ? 'text-blue-600'
+                    ? 'text-slate-800'
                     : 'text-green-700'
               }
             >
@@ -134,7 +214,7 @@ export default function Profile() {
         </p>
         <input
           type="text"
-          placeholder='Username'
+          placeholder='Change Username'
           defaultValue={currentUser.userName}
           id='userName'
           className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 transition-shadow'
@@ -142,7 +222,7 @@ export default function Profile() {
         />
         <input
           type="email"
-          placeholder='Email'
+          placeholder='Change Email'
           defaultValue={currentUser.email}
           id='email'
           className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 transition-shadow'
@@ -150,7 +230,7 @@ export default function Profile() {
         />
         <input
           type="password"
-          placeholder='Password'
+          placeholder='Change Password'
           id='password'
           className='border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 transition-shadow'
           onChange={handleChange}
@@ -168,20 +248,21 @@ export default function Profile() {
         ) : (
           <button
             className='bg-slate-600 text-white rounded-lg p-3 uppercase hover:bg-slate-700
-            dark:hover:bg-slate-800 disabled:opacity-80 transition-all' disabled={isUploading}
+            disabled:opacity-80 transition-all' disabled={isUploading}
           >
-            {isUploading ? "Uploading Image..." : "Update"}
+            {isUploading ? "Processing..." : "Update"}
           </button>
         )}
       </form>
-      <div className="flex justify-between mt-7">
-        <span className='text-red-700 cursor-pointer hover:underline transition-colors'>
+      <div className="flex justify-between mt-7 text-red-800 font-semibold">
+        <span className='cursor-pointer hover:underline hover:text-red-900' onClick={(e)=>setDeleteDialogBox(true)}>
           Delete account
         </span>
-        <span className='text-red-700 cursor-pointer hover:underline transition-colors'>
-          Sign out
+        <span className='cursor-pointer hover:underline hover:text-red-900' onClick={handleLogout}>
+          Logout 
         </span>
       </div>
-    </div>
+    </div>)}
+  </>
   );
 }

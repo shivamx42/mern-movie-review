@@ -5,10 +5,13 @@ import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import { ThreeCircles } from 'react-loader-spinner'
+import ShowBackground from '../components/ShowBackground';
+import { FaHome } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip'
 
 
 export default function Account() {
-  const [bgImage, setBgImage] = useState("/img5.jpg");
   const [showLoginForm, setShowLoginForm] = useState(true);
   const [formData, setFormData] = useState({});
   const [newFormData, setNewFormData] = useState({});
@@ -30,17 +33,6 @@ export default function Account() {
     }
   },[currentUser])
 
-  useEffect(() => {
-    const images = ["/img1.jpg", "/img2.jpg", "/img3.jpg", "/img4.jpg", "/img5.jpg", "/img6.jpg", "/img7.jpg", "/img8.jpg", "/img9.jpg", "/img10.jpg"];
-    const changeBackgroundImage = () => {
-      const randomImage = images[Math.floor(Math.random() * images.length)];
-      setBgImage(randomImage);
-    };
-
-    const intervalId = setInterval(changeBackgroundImage, 7500);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   const toggleForm = () => {
     setShowLoginForm(!showLoginForm);
@@ -105,26 +97,22 @@ export default function Account() {
   }
 
   return (
+    <>
+      <ShowBackground>
     <div className="relative flex items-center justify-center min-h-screen">
-      <div
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          transition: "background-image 2.1s ease-in-out",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          zIndex: 1,
-        }}
-      ></div>
+      
       <div className="bg-slate-200 border-4 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 w-full md:w-auto">
         <div className={`transition-transform duration-1000 ${showLoginForm ? 'translate-y-28' : '-translate-y-96'} -mt-16`}>
+        <div className='flex items-center justify-center'> 
           <h2 className="text-2xl font-bold text-center  ">Login</h2>
-          <form onSubmit={handleLoginSubmit} className="md:w-96 sm:w-0">
+          <Link to={"/"} className=" translate-x-12 hover:cursor-pointer">
+          <div data-tooltip-id="my-tooltip" data-tooltip-content="Go to the home page" >
+            <FaHome />
+          </div>
+          <Tooltip id="my-tooltip" />
+        </Link>
+        </div>
+          <form onSubmit={handleLoginSubmit} className="md:w-96">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Email
@@ -176,11 +164,19 @@ export default function Account() {
           </div>
         </div>
         <div className={`transition-transform duration-1000 ${showLoginForm ? 'translate-y-96' : '-translate-y-10'} -mb-1 -mt-40`}>
+        <div className='flex items-center justify-center'>
           <h2 className="text-2xl font-bold text-center ">Register</h2>
+          <Link to={"/"} className=" translate-x-12 hover:cursor-pointer">
+          <div data-tooltip-id="my-tooltip" data-tooltip-content="Go to the home page" >
+            <FaHome />
+          </div>
+          <Tooltip id="my-tooltip" />
+        </Link>
+        </div>
           <form onSubmit={handleRegisterSubmit} className="md:w-96 ">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" >
-                userName
+                Username
               </label>
               <input
                 id="userName"
@@ -255,5 +251,7 @@ export default function Account() {
         </div>
       </div>
     </div>
+    </ShowBackground>
+    </>
   );
 }

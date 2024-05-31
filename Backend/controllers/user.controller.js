@@ -2,8 +2,7 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 
 export const updateUser = async (req, res, next) => {
-  console.log(req.user.id);
-  console.log(req.params.id);
+
   if (req.user.id !== req.params.id) {
     return res.status(401).json({ message: 'Internal Server Error!' });
   }
@@ -48,6 +47,24 @@ export const updateUser = async (req, res, next) => {
 
     return res.status(200).json({ message: "Details updated successfully!", userData: updatedUser });
   } catch (error) {
-    next(error);
+    return res.status(400).json({message: "Internal Server Error"})
   }
 };
+
+
+export const deleteUser = async (req, res, next) => {
+
+  if (req.user.id !== req.params.id) {
+    return res.status(401).json({ message: 'Internal Server Error!' });
+  }
+
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie('access_token');
+    return res.status(200).json({ message: "Profile has been deleted!" });
+
+  } catch (error) {
+    return res.status(400).json({message: "Internal Server Error"})
+  }  
+
+}
