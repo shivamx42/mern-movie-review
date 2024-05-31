@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function ShowBackground({children}) {
+export default function ShowBackground({children, showBlur}) {
     const [bgImage, setBgImage] = useState("/img5.jpg");
 
     useEffect(() => {
@@ -10,7 +10,7 @@ export default function ShowBackground({children}) {
         setBgImage(randomImage);
       };
   
-      const intervalId = setInterval(changeBackgroundImage, 10000);
+      const intervalId = setInterval(changeBackgroundImage, showBlur?30000:10000);
   
       return () => clearInterval(intervalId);
     }, []);
@@ -20,7 +20,8 @@ export default function ShowBackground({children}) {
         <div
           style={{
             backgroundImage: `url(${bgImage})`,
-            transition: "background-image 4.3s ease-in-out",
+            transition: "background-image ease-in-out",
+            transitionDuration:showBlur?"10s":"4.3s",
             position: "absolute",
             top: 0,
             left: 0,
@@ -30,6 +31,8 @@ export default function ShowBackground({children}) {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             zIndex: 1,
+            filter: showBlur ? " grayscale(100%)" : "none",
+            
           }}
         />
         <div style={{ position: "relative", zIndex: 2 }}>

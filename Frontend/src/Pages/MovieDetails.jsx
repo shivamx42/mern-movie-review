@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import ShowMovieDetails from '../components/ShowMovieDetails';
+import UserReviews from '../components/UserReviews';
 
 export default function MovieDetails() {
   const {id}=useParams();
@@ -31,13 +32,14 @@ export default function MovieDetails() {
     return <div>Loading...</div>;
   }
   
-  if (!movie) {
+  if (movie.success==false) {
     return <div>Movie not found</div>;
   }
 
   return (
     <div className='w-full min-h-screen'>
       <ShowMovieDetails movie={movie}/>
+      <UserReviews/>
     </div>
   );
 }
