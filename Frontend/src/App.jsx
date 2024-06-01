@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRoute"
 import ProfileComplete from "./components/ProfileComplete"
 import ReviewPrivateRoute from "./components/ReviewPrivateRoute"
 import AddReview from "./components/AddReview"
+import Header from "./components/Header"
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       path:'/about',
       element:(
         <>
-        <Layout/>
+        <Header/>
         <About/>
         </>
       )
@@ -77,7 +78,7 @@ function App() {
 
   return (
     <>
-    <div className="bg-slate-200 dark:bg-slate-600">
+    <div className="bg-slate-200 dark:bg-[#121111]">
 
       <RouterProvider router={router}/>
     </div>

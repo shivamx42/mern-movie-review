@@ -5,10 +5,10 @@ import { app } from '../firebase';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateUser,deleteOrLogoutUser } from '../redux/user/userSlice';
-import { ThreeCircles } from 'react-loader-spinner';
 import { FaHome } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip'
+import LoadingEffect from '../components/LoadingEffect';
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -237,13 +237,7 @@ export default function Profile() {
         />
         {loading ? (
           <div className='flex items-center justify-center'>
-            <ThreeCircles
-              visible={true}
-              height="40"
-              width="40"
-              color="black"
-              ariaLabel="three-circles-loading"
-            />
+            <LoadingEffect/>
           </div>
         ) : (
           <button

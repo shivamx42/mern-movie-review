@@ -1,18 +1,24 @@
 export default function About() {
     return (
-      <div className='max-w-6xl mx-auto p-3 space-y-4 min-h-screen'>
-        <h1 className='text-2xl font-medium text-amber-600'>About</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias enim possimus repellendus exercitationem nesciunt eligendi quis aliquid deleniti iure, reprehenderit praesentium, suscipit itaque perspiciatis rerum amet, dolores aspernatur sed voluptatum in ex dolorum cum eos! Eligendi molestias officiis saepe, architecto earum quisquam necessitatibus reiciendis? Veniam, dolorem. Ipsam deleniti illum facere.
-        </p>
-  
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium obcaecati expedita accusantium aliquid eligendi ipsam fugiat esse nostrum provident reprehenderit earum optio voluptatum rem sed, facilis quibusdam possimus beatae architecto reiciendis impedit omnis maiores dignissimos iste! Velit fugit expedita neque aspernatur consequuntur sint eum sapiente libero vel ipsum nam, consectetur culpa optio temporibus nisi deserunt sit quo sunt? Accusantium maxime corrupti, eaque minus qui consequatur reprehenderit possimus tempora perferendis? Minus delectus fuga ullam iste eaque totam nostrum perspiciatis, aspernatur, doloribus, dignissimos eligendi enim reiciendis magnam soluta nam recusandae. Iure cumque blanditiis consectetur similique laudantium totam tempore amet atque. Eveniet, saepe.
-        </p>
-  
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque in, nemo repellat dolorem cum voluptate perspiciatis illo nisi amet consequuntur fugiat tempora inventore quam ipsam atque iste at ad impedit quisquam exercitationem laudantium. Ut, debitis repudiandae aliquam expedita ipsum non explicabo sequi? Eveniet officia, aspernatur laudantium cumque id quos non veritatis nobis architecto esse dolore perferendis reprehenderit quae ullam, mollitia corporis reiciendis quam? Molestiae minus deleniti enim at nisi, saepe doloribus expedita temporibus ratione fugiat nobis nulla facilis sapiente nemo, explicabo delectus maxime tenetur, impedit dolorem ea? Libero, officia? Soluta praesentium totam quam suscipit quos. Tenetur praesentium magni excepturi soluta.
-        </p>
+      <div className='max-w-6xl mx-auto p-3 min-h-screen text-gray-600 dark:text-slate-50'>
+        <h1 className='text-2xl font-semibold my-10'>About <span className="font-bold text-red-500">CinemaPulse</span></h1>
+        <div className=" flex flex-col gap-8  ">
+
+          
+
+    <p>
+
+      Welcome to CinemaPulse! We're your gateway to a world of cinematic wonders, offering a diverse collection of movies to suit every taste and mood. Whether you're in the mood for the latest blockbuster hits or craving the timeless charm of classic films, CinemaPulse has you covered. Our platform allows you to effortlessly discover trending movies, explore top picks curated by critics and audiences alike, and search for any movie by its title, ensuring that your favorite films are always within reach.
+    </p>
+    <p>
+      But CinemaPulse is more than just a movie database—it's a community of passionate film enthusiasts coming together to share their love for cinema. Our platform empowers you to read and write reviews, offering a space where your voice matters. Whether you're raving about the latest indie gem or debating the merits of a Hollywood blockbuster, our review section is your platform to express yourself and connect with fellow movie lovers. At CinemaPulse, your opinions shape the conversation, helping others discover their next cinematic adventure.
+
+    </p>
+    <p>
+
+      Join us on CinemaPulse and become part of a vibrant community where the magic of movies comes to life. Whether you're a casual viewer or a die-hard cinephile, there's something for everyone to enjoy. So sit back, grab your popcorn, and let the cinematic journey begin. Thank you for choosing CinemaPulse—we're excited to embark on this adventure with you. Happy browsing!
+    </p>
+        </div>
       </div>
     );
   }

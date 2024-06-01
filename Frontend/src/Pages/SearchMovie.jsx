@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import ShowMovies from '../components/ShowMovies';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LoadingEffect from '../components/LoadingEffect';
 
 export default function MovieDetails() {
   const {searchTerm}=useParams();
@@ -12,6 +15,7 @@ export default function MovieDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await fetch(
             `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${searchTerm}&language=en-US&page=1&include_adult=false`
         );
@@ -20,7 +24,7 @@ export default function MovieDetails() {
         setMovies(data.results);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        toast.error("Internal Server Error!");
       }
     };
 
@@ -28,8 +32,8 @@ export default function MovieDetails() {
   }, [searchTerm]);
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
+    return <div className='min-h-screen flex items-center justify-center -translate-y-28'><LoadingEffect/></div>;
+    } 
   
 
   return (
@@ -37,8 +41,8 @@ export default function MovieDetails() {
     
     <div className=' min-h-screen'>
      {movies &&
-        movies.length ===
-        <h1 className='text-center pt-6'>No results found</h1>}
+        movies.length === 0 &&
+        <h1 className='text-center pt-52 text-2xl font-bold text-gray-600 dark:text-slate-50'>No Movies found!</h1>}
       {movies && <ShowMovies movies={movies} />}
     </div>
   );

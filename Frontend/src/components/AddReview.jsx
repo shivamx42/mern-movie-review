@@ -63,7 +63,7 @@ export default function AddReview() {
               required
               row="20"
               maxLength={2000}
-              placeholder='Write your review in under 2000 characters'
+              placeholder='Write your review in under 3000 characters'
             />
           </div>
           <div className="mb-6 flex flex-col items-center">

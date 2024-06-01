@@ -4,11 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
-import { ThreeCircles } from 'react-loader-spinner'
 import ShowBackground from '../components/ShowBackground';
 import { FaHome } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip'
+import LoadingEffect from '../components/LoadingEffect';
 
 
 export default function Account() {
@@ -142,13 +142,7 @@ export default function Account() {
               />
             </div>
             {loading?(<div className='flex items-center justify-center'>
-              <ThreeCircles
-                  visible={true}
-                  height="40"
-                  width="40"
-                  color="black"
-                  ariaLabel="three-circles-loading"
-                  />
+              <LoadingEffect/>
             </div>):(<div className="flex items-center justify-between">
               <button
                 type="submit"
@@ -217,13 +211,7 @@ export default function Account() {
               />
             </div>
             {loading?(<div className='flex items-center justify-center'>
-              <ThreeCircles
-                  visible={true}
-                  height="40"
-                  width="40"
-                  color="black"
-                  ariaLabel="three-circles-loading"
-                  />
+              <LoadingEffect/>
             </div>):
             (<div className="flex items-center justify-between">
               <button

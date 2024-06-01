@@ -1,16 +1,13 @@
 import { Link, useSearchParams } from "react-router-dom";
 
-export default function NavbarItem({ title, param }) {
+export default function HeaderItem({ title, param }) {
   const [searchParams] = useSearchParams();
   const genre = searchParams.get('genre');
   return (
     <div>
       <Link
-        className={`hover:text-amber-600 font-semibold ${
-          genre === param
-            ? 'underline underline-offset-8 decoration-4 decoration-amber-500 rounded-lg'
-            : ''
-        }`}
+          className={`font-semibold ${genre === param ? '  text-red-400 hover:text-red-400' : 'hover:text-slate-800 dark:hover:text-slate-50'
+          }`}
         to={`/?genre=${param}`}
       >
         {title}

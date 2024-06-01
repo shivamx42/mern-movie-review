@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ShowMovies from '../components/ShowMovies';
+import LoadingEffect from '../components/LoadingEffect';
+
 
 export default function Home() {
   const [searchParams] = useSearchParams();
@@ -13,6 +15,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await fetch(
           `https://api.themoviedb.org/3${
             genre === "fetchTopRated" ? `/movie/top_rated` : `/trending/all/week`
@@ -29,13 +32,21 @@ export default function Home() {
     fetchData();
   }, [genre]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if(loading){
+    return (
+    <div className='min-h-screen flex items-center justify-center -translate-y-28'>
+      <LoadingEffect/>
+    </div>
+
+    )
   }
 
   return (
     <div className='min-h-screen'>
       <ShowMovies movies={movies}/>
+      <div>
+        <span className='opacity-0 select-none'>🫡</span>
+      </div>
     </div>
   );
 }
