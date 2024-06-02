@@ -155,8 +155,8 @@ export default function Profile() {
     <>
     {deleteDialogBox?(<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-xl z-50">
       <div className="bg-white rounded-lg p-8 shadow-md">
-        <h2 className="text-xl font-bold mb-4">Delete Note</h2>
-        <p className="mb-4">Are you sure you want to delete this note?</p>
+        <h2 className="text-xl font-bold mb-4">Delete Profile!</h2>
+        <p className="mb-4">Are you sure you want to delete your profile?</p>
         <p className="mb-4 mx-10">This action cannot be undone!</p>
         <div className="flex justify-end">
           <button

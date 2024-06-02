@@ -31,7 +31,7 @@ export default function UserReviews({imageUrl,movieTitle}) {
     return `${day}/${month}/${year}`;
   }
 
-  function handleShowOneReview(userId,review,reviewDate,reviewBy,ratings) {
+  function handleShowOneReview(userId,review,reviewDate,reviewBy,ratings,reviewId) {
     
     navigate('/showReview', {
       state: {
@@ -42,13 +42,14 @@ export default function UserReviews({imageUrl,movieTitle}) {
         ratings,
         imageUrl,
         movieTitle,
+        reviewId
       }
     });
   }
 
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="max-w-lg lg:max-w-3xl mx-auto p-8">
       {reviews.length === 0 ? (
         <div className="flex flex-col items-center justify-center">
           <p className="text-lg font-medium mb-4">No reviews found</p>
@@ -60,7 +61,7 @@ export default function UserReviews({imageUrl,movieTitle}) {
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-8">
           <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-8 dark:border-[#F8FAFC]">
             <h3 className="text-2xl font-bold mb-4">User Reviews</h3>
             <button 
@@ -70,26 +71,27 @@ export default function UserReviews({imageUrl,movieTitle}) {
               Add Review
             </button>
           </div>
-          {reviews.map((review) => (
-            <div 
-              key={review._id} 
-              className="p-4 border border-black dark:border-[#d1d1e4] rounded-lg shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer"
-              onClick={()=>{
-                handleShowOneReview(review.userRef,review.review,getDate(review.createdAt),review.submittedBy,review.ratings)
-              }}
-            >
-              <div className="flex justify-between items-center mb-2">
-                <h4 className="text-lg font-semibold">{review.submittedBy}</h4>
-                
+          <div className="grid gap-8 lg:grid-cols-2">
+        {reviews.map((review) => (
+          <div
+            key={review._id}
+            className="p-6 border border-gray-400 dark:border-slate-400 rounded-lg shadow-md  transition-transform duration-300 transform hover:scale-105 cursor-pointer bg-[#fbfbfb] dark:bg-[#334155] "
+            onClick={() => {
+              handleShowOneReview(review.userRef, review.review, getDate(review.createdAt), review.submittedBy, review.ratings, review._id);
+            }}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h4 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{review.submittedBy}</h4>
               <div className="flex items-center">
-                <span className="font-semibold mr-1">Rating:</span>
-                <span>{review.ratings} / 5</span>
+                <span className="font-semibold text-gray-700 dark:text-gray-300 mr-1">Rating:</span>
+                <span className="text-gray-900 dark:text-gray-100">{review.ratings} / 5</span>
               </div>
-              </div>
-              <p className="mb-2 line-clamp-2">{review.review}</p>
             </div>
-          ))}
-        </div>
+            <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">{review.review}</p>
+          </div>
+        ))}
+      </div>
+    </div>
       )}
     </div>
   );

@@ -50,7 +50,7 @@ export default function Header() {
       <div className='flex items-center mr-4'>
         <Link to="/" className='mr-8'>
           <span className=' font-bold bg-gray-300 py-2 px-2 rounded-lg dark:bg-slate-600 border border-black dark:border-[#d1d1e4] hover:bg-slate-300 dark:hover:bg-gray-600 transition-all duration-100 text-gray-700 dark:text-slate-50'>
-            CinemaPulse
+            FilmGalaxy
           </span>
         </Link>
         <SwitchTheme />

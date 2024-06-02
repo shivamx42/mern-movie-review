@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import ShowMovieDetails from '../components/ShowMovieDetails';
 import LoadingEffect from '../components/LoadingEffect';
+import { Helmet } from 'react-helmet';
 
 
 export default function MovieDetails() {
@@ -46,8 +47,13 @@ export default function MovieDetails() {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>{movie.title || movie.name} | FilmGalaxy</title>
+    </Helmet>
     <div className='w-full text-gray-600 dark:text-slate-50'>
       <ShowMovieDetails movie={movie}/>
     </div>
+    </>
   );
 }

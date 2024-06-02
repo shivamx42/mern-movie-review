@@ -19,3 +19,13 @@ export const getReviews=async(req,res)=>{
         res.status(500).json({ message: "Internal Server Error!" });
     }
 }
+
+export const deleteReview=async(req,res)=>{
+    try {
+        await Review.findByIdAndDelete(req.params.id);
+        return res.status(200).json({ message: "Review Deleted!" });
+    
+      } catch (error) {
+        return res.status(400).json({message: "Internal Server Error"})
+      }  
+}

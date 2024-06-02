@@ -12,6 +12,7 @@ import ReviewPrivateRoute from "./components/ReviewPrivateRoute"
 import AddReview from "./components/AddReview"
 import Header from "./components/Header"
 import ShowOneReview from "./Pages/ShowOneReview"
+import { Helmet } from "react-helmet"
 
 
 function App() {
@@ -91,7 +92,9 @@ function App() {
   return (
     <>
     <div className="bg-slate-200 dark:bg-[#121111] min-h-screen">
-
+      <Helmet>
+          <title>FilmGalaxy</title>
+        </Helmet>
       <RouterProvider router={router}/>
     </div>
     </>

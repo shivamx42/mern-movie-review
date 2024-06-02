@@ -47,6 +47,9 @@ export default function MovieDetails() {
         movies.length === 0 &&
         <h1 className='text-center pt-48 text-2xl font-bold text-gray-600 dark:text-slate-50'>No Movies Found!</h1>}
       {movies && <ShowMovies movies={movies} />}
+      <div>
+        <span className='opacity-0 select-none'>🫡</span>
+      </div>
     </div>
   );
 }

@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShowOneReview() {
   const location = useLocation();
-  const { userId, review, reviewDate, reviewBy, ratings, imageUrl, movieTitle } = location.state || {};
+  const { userId, review, reviewDate, reviewBy, ratings, imageUrl, movieTitle, reviewId } = location.state || {};
   const { currentUser } = useSelector(state => state.user);
+
+  const [deleteDialogBox,setDeleteDialogBox]=useState(false);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -16,32 +21,76 @@ export default function ShowOneReview() {
     return (<h1 className='text-center pt-48 text-2xl font-bold text-gray-600 dark:text-slate-50'>Review Not Available!</h1>)
   }
 
-  return (
+  const navigate=useNavigate()
+  const handleDelete=async()=>{
     
-  
-    <div className='min-h-screen text-gray-600 dark:text-slate-50 p-4'>
-      <div className='max-w-4xl mx-auto mb-4'>
-        <img
-          src={imageUrl}
-          alt={`${movieTitle} Poster`}
-          className='rounded-lg w-96 h-60 mb-6 mx-auto border-4 dark:border-slate-100 '
-        />
-        <h1 className='text-3xl font-bold mb-6 text-center'>{movieTitle}</h1>
-        <p className=" bg-slate-50 dark:bg-slate-700 shadow-lg rounded-lg p-8">
-          <h2 className='text-2xl font-semibold mb-4'>{reviewBy}'s Review</h2>
-          <p className='mb-16 text-lg'> {review}</p>
-          <p className='mb-4 text-lg'><strong>Ratings:</strong> {ratings}/5</p>
-          <p className='mb-4 text-lg'><strong>Added on:</strong> {reviewDate}</p>
-          {currentUser._id === userId && (
-            <div className='flex space-x-4 mt-6'>
-              <button className='px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition duration-300'>Delete Review</button>
-            
-            </div>
-          )}
-        </p>
+    const res = await fetch(`/api/reviews/deleteReview/${reviewId}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(res.status===200){
+      toast.success(data.message);
+      navigate(-1, { replace: true });
+    }
+    
+    else{
+      toast.error(data.message);
+    }
+    
+    if(res.status===200) dispatch(deleteOrLogoutUser());
+  }
+  return (
+    <>
+      {deleteDialogBox?(<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-md z-50">
+        <div className="bg-white rounded-lg p-8 shadow-md">
+          <h2 className="text-xl font-bold mb-4">Delete Review!</h2>
+          <p className="mb-4">Are you sure you want to delete this review?</p>
+          <p className="mb-4 mx-10">This action cannot be undone!</p>
+          <div className="flex justify-end">
+            <button
+              onClick={handleDelete}
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded mr-2"
+            >
+              Delete
+            </button>
+            <button
+              onClick={(e)=>setDeleteDialogBox(false)}
+              className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>) :
+    
+      (<div>
+        <Helmet>
+          <title>{movieTitle} | FilmGalaxy</title>
+        </Helmet>
+        <div className='min-h-screen text-gray-600 dark:text-slate-50 p-4'>
+        <div className='max-w-3xl mx-auto mb-4'>
+          <img
+            src={imageUrl}
+            alt={`${movieTitle} Poster`}
+            className='rounded-lg w-96 h-60 mb-6 mx-auto border-4 dark:border-slate-100 '
+          />
+          <h1 className='text-3xl font-bold mb-6 text-center'>{movieTitle}</h1>
+          <p className=" bg-slate-50 dark:bg-slate-700 shadow-lg rounded-lg p-8">
+            <h2 className='text-2xl font-semibold mb-4'>{reviewBy}'s Review</h2>
+            <p className='mb-16 text-lg'> {review}</p>
+            <p className='mb-4 text-lg'><strong>Ratings:</strong> {ratings}/5</p>
+            <p className='mb-4 text-lg'><strong>Added on:</strong> {reviewDate}</p>
+          </p>
+        </div>
+            {currentUser._id === userId && (
+              <div className='mt-6 text-center'>
+                <button className='px-4 py-2 bg-red-500 text-slate-50 rounded-md hover:bg-red-600 transition duration-300 border-2 border-black dark:border-white dark:border' onClick={(e)=>setDeleteDialogBox(true)}>Delete Review</button>
+              
+              </div>
+            )}
       </div>
-    </div>
-
+      </div>)}
+  </>
     
   );
 }
