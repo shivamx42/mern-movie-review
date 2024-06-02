@@ -10,6 +10,9 @@ export default function MovieDetails() {
   const key = import.meta.env.VITE_TMDB_API;
   const [movies,setMovies]=useState([]);
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [loading]);
 
 
   useEffect(() => {
@@ -32,17 +35,17 @@ export default function MovieDetails() {
   }, [searchTerm]);
 
   if (loading) {
-    return <div className='min-h-screen flex items-center justify-center -translate-y-28'><LoadingEffect/></div>;
+    return <div className='flex items-center justify-center'><LoadingEffect toTranslate={true}/></div>;
     } 
   
 
   return (
 
     
-    <div className=' min-h-screen'>
+    <div>
      {movies &&
         movies.length === 0 &&
-        <h1 className='text-center pt-52 text-2xl font-bold text-gray-600 dark:text-slate-50'>No Movies found!</h1>}
+        <h1 className='text-center pt-48 text-2xl font-bold text-gray-600 dark:text-slate-50'>No Movies Found!</h1>}
       {movies && <ShowMovies movies={movies} />}
     </div>
   );

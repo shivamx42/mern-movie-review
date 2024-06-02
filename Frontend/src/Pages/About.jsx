@@ -1,6 +1,6 @@
 export default function About() {
     return (
-      <div className='max-w-6xl mx-auto p-3 min-h-screen text-gray-600 dark:text-slate-50'>
+      <div className='max-w-6xl mx-auto p-3h text-gray-600 dark:text-slate-50'>
         <h1 className='text-2xl font-semibold my-10'>About <span className="font-bold text-red-500">CinemaPulse</span></h1>
         <div className=" flex flex-col gap-8  ">
 

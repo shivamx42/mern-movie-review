@@ -11,6 +11,7 @@ import ProfileComplete from "./components/ProfileComplete"
 import ReviewPrivateRoute from "./components/ReviewPrivateRoute"
 import AddReview from "./components/AddReview"
 import Header from "./components/Header"
+import ShowOneReview from "./Pages/ShowOneReview"
 
 
 function App() {
@@ -73,12 +74,23 @@ function App() {
       children:[
         {path: "/addReview/:movieID",element: <AddReview/>}
       ]
+    },
+    {
+      path:'/showReview',
+      element:(
+
+      <>
+        <Layout/>
+        <ShowOneReview/>
+      </>
+      )
+      
     }
   ])
 
   return (
     <>
-    <div className="bg-slate-200 dark:bg-[#121111]">
+    <div className="bg-slate-200 dark:bg-[#121111] min-h-screen">
 
       <RouterProvider router={router}/>
     </div>

@@ -34,15 +34,15 @@ export default function Home() {
 
   if(loading){
     return (
-    <div className='min-h-screen flex items-center justify-center -translate-y-28'>
-      <LoadingEffect/>
+    <div>
+      <LoadingEffect toTranslate={true}/>
     </div>
 
     )
   }
 
   return (
-    <div className='min-h-screen'>
+    <div>
       <ShowMovies movies={movies}/>
       <div>
         <span className='opacity-0 select-none'>🫡</span>

@@ -41,7 +41,7 @@ export default function AddReview() {
     <>
       
       <ShowBackground showBlur={true}>
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center ">
         <form 
           className="bg-slate-200 border-2 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 sm:w-96 md:w-[420px] backdrop-blur-sm"
           onSubmit={handleSubmit}

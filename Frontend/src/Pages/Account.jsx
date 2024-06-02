@@ -99,7 +99,7 @@ export default function Account() {
   return (
     <>
       <ShowBackground>
-    <div className="relative flex items-center justify-center min-h-screen">
+    <div className="relative flex items-center justify-center">
       
       <div className="bg-slate-200 border-4 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 w-full md:w-auto">
         <div className={`transition-transform duration-1000 ${showLoginForm ? 'translate-y-28' : '-translate-y-96'} -mt-16`}>

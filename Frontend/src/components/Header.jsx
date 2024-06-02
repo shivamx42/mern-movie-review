@@ -20,7 +20,6 @@ export default function Header() {
 
   const location=useLocation();
   const isAbout = location.pathname === '/about';
-  console.log(isAbout);
 
   return (
     <div className='flex justify-between items-center p-4 relative border-b border-black dark:border-[#d1d1e4] text-gray-600 dark:text-slate-50'>
