@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShowOneReview() {
   const location = useLocation();
-  const { userId, review, reviewDate, reviewBy, ratings, imageUrl, movieTitle, reviewId } = location.state || {};
+  const { userId, review, reviewDate, reviewBy, ratings, imageUrl, movieTitle, reviewId, movieId } = location.state || {};
   const { currentUser } = useSelector(state => state.user);
 
   const [deleteDialogBox,setDeleteDialogBox]=useState(false);
@@ -30,7 +30,7 @@ export default function ShowOneReview() {
     const data = await res.json();
     if(res.status===200){
       toast.success(data.message);
-      navigate(-1, { replace: true });
+      navigate(`/movie/${movieId}`, { replace: true });
     }
     
     else{
@@ -42,6 +42,9 @@ export default function ShowOneReview() {
   return (
     <>
       {deleteDialogBox?(<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-md z-50">
+          <Helmet>
+            <title>{movieTitle} | FilmGalaxy</title>
+          </Helmet>
         <div className="bg-white rounded-lg p-8 shadow-md">
           <h2 className="text-xl font-bold mb-4">Delete Review!</h2>
           <p className="mb-4">Are you sure you want to delete this review?</p>

@@ -7,7 +7,6 @@ export default function ShowMovieDetails({movie}) {
   ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path || movie.poster_path}`
   : "https://firebasestorage.googleapis.com/v0/b/movie-review-d1e0e.appspot.com/o/movie-stock.jpg?alt=media&token=cc9ee065-ee36-47d6-9731-774132c5f3ab";
 
-
   const imageRef = useRef(null);
 
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function ShowMovieDetails({movie}) {
           
           </div>
         </div>
-        <UserReviews imageUrl={imageUrl} movieTitle={movie.title}/>
+        <UserReviews imageUrl={imageUrl} movieTitle={movie.title} movieId={movie.id}/>
     </>
   )
 }

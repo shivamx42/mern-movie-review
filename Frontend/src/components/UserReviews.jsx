@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function UserReviews({imageUrl,movieTitle}) {
+export default function UserReviews({imageUrl,movieTitle,movieId}) {
 
 
   const navigate = useNavigate();
@@ -42,7 +42,8 @@ export default function UserReviews({imageUrl,movieTitle}) {
         ratings,
         imageUrl,
         movieTitle,
-        reviewId
+        reviewId,
+        movieId
       }
     });
   }
