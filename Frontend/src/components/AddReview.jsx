@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -12,20 +12,37 @@ import { Tooltip } from 'react-tooltip'
 export default function AddReview() {
   const [review, setReview] = useState('');
   const [ratings, setRatings] = useState(0);
+  const [isProcessing,setIsProcessing]=useState(false);
+  const [title,setTitle]=useState("");
   const {movieID}=useParams();
   const  {currentUser}  = useSelector(state => state.user);
   const userId=currentUser._id;
   const username=currentUser.userName;
+  const key = import.meta.env.VITE_TMDB_API;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+      const res= await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${key}&language=en-US`);
+      const data = await res.json();
+      setTitle(data.original_title);
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(title);
 
   const navigate=useNavigate();
   const handleSubmit = async(e) => {
+    setIsProcessing(true);
     e.preventDefault();
     const res = await fetch(`/api/reviews/postReview/${movieID}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({review,ratings,userRef: userId,movieID,submittedBy: username}),
+      body: JSON.stringify({review,ratings,userRef: userId,movieID,submittedBy: username, movieTitle: title}),
     });
     const data = await res.json();
     if(res.status===201){
@@ -33,17 +50,20 @@ export default function AddReview() {
       navigate(`/movie/${movieID}`, {replace: true})
     }
 
-    else toast.error(data.message);
+    else {
+      setIsProcessing(false);
+      toast.error(data.message);
+    }
   };
 
 
   return (
     <>
       
-      <ShowBackground showBlur={true}>
+      <ShowBackground >
       <div className="flex justify-center items-center ">
         <form 
-          className="bg-slate-200 border-2 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 sm:w-96 md:w-[420px] backdrop-blur-sm"
+          className="bg-slate-200 border-2 border-black bg-opacity-80 p-4 rounded-lg shadow-md relative z-10 overflow-hidden mx-3 sm:w-96 md:w-[450px] backdrop-blur-sm"
           onSubmit={handleSubmit}
         >
           <h2 className="text-2xl font-bold mb-6 text-center">{currentUser.userName}, Add Your Review</h2>
@@ -57,11 +77,10 @@ export default function AddReview() {
             <textarea
               id="review"
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 transition-shadow resize-none"
-              rows="8"
+              rows="10"
               value={review}
               onChange={(e) => setReview(e.target.value)}
               required
-              row="20"
               maxLength={2000}
               placeholder='Write your review in under 3000 characters'
             />
@@ -105,10 +124,11 @@ export default function AddReview() {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-slate-600 text-white rounded-lg p-3 uppercase hover:bg-slate-700
-              transition-all"
+                className={`bg-slate-600 text-white rounded-lg p-3 uppercase hover:bg-slate-700
+              transition-all ${isProcessing?"cursor-not-allowed":""}`}
+              disabled={isProcessing}
               >
-                Submit Review
+                {isProcessing?"Processing...":"Submit Review"}
               </button>
             </div>
             <Link to={`/movie/${movieID}`} className=" translate-x-12 hover:cursor-pointer">

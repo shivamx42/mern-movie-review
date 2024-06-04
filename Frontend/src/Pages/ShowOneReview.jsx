@@ -7,15 +7,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShowOneReview() {
   const location = useLocation();
-  const { userId, review, reviewDate, reviewBy, ratings, imageUrl, movieTitle, reviewId, movieId } = location.state || {};
+  const { userId, review, reviewDate, reviewBy, ratings,  movieTitle, reviewId, movieId } = location.state || {};
   const { currentUser } = useSelector(state => state.user);
+  const checkUserId=currentUser?currentUser._id:null;
 
+  const [imageUrl,setImageUrl]=useState("");
   const [deleteDialogBox,setDeleteDialogBox]=useState(false);
+  
 
-
+  const key = import.meta.env.VITE_TMDB_API;
   useEffect(() => {
     window.scrollTo(0, 0);
+    const fetchData = async () => {
+      
+      const res= await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${key}&language=en-US`);
+      const data = await res.json();
+      const image=`https://image.tmdb.org/t/p/w500${data.backdrop_path || data.poster_path}`;
+      setImageUrl(image);
+    };
+
+    fetchData();
   }, []);
+
+  console.log({review,movieId,reviewBy,movieTitle})
 
   if(location.state==null){
     return (<h1 className='text-center pt-48 text-2xl font-bold text-gray-600 dark:text-slate-50'>Review Not Available!</h1>)
@@ -78,14 +92,14 @@ export default function ShowOneReview() {
             className='rounded-lg w-96 h-60 mb-6 mx-auto border-4 dark:border-slate-100 '
           />
           <h1 className='text-3xl font-bold mb-6 text-center'>{movieTitle}</h1>
-          <p className=" bg-slate-50 dark:bg-slate-700 shadow-lg rounded-lg p-8">
+          <div className=" bg-slate-50 dark:bg-slate-700 shadow-lg rounded-lg p-8">
             <h2 className='text-2xl font-semibold mb-4'>{reviewBy}'s Review</h2>
             <p className='mb-16 text-lg'> {review}</p>
             <p className='mb-4 text-lg'><strong>Ratings:</strong> {ratings}/5</p>
             <p className='mb-4 text-lg'><strong>Added on:</strong> {reviewDate}</p>
-          </p>
+          </div>
         </div>
-            {currentUser._id === userId && (
+            {checkUserId === userId && (
               <div className='mt-6 text-center'>
                 <button className='px-4 py-2 bg-red-500 text-slate-50 rounded-md hover:bg-red-600 transition duration-300 border-2 border-black dark:border-white dark:border' onClick={(e)=>setDeleteDialogBox(true)}>Delete Review</button>
               

@@ -6,7 +6,7 @@ export default function HeaderItem({ title, param }) {
   return (
     <div>
       <Link
-          className={`font-semibold ${genre === param ? '  text-red-400 hover:text-red-400' : 'hover:text-slate-800 dark:hover:text-slate-50'
+          className={`font-semibold ${genre === param ? '  text-red-400 dark:text-red-500' : 'hover:text-slate-800 dark:hover:text-slate-50'
           }`}
         to={`/?genre=${param}`}
       >

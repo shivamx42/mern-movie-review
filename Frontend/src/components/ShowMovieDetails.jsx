@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import UserReviews from './UserReviews';
+import MovieReviews from './MovieReviews';
 
 export default function ShowMovieDetails({movie}) {
 
@@ -55,7 +55,7 @@ export default function ShowMovieDetails({movie}) {
           
           </div>
         </div>
-        <UserReviews imageUrl={imageUrl} movieTitle={movie.title} movieId={movie.id}/>
+        <MovieReviews movieTitle={movie.title} movieId={movie.id}/>
     </>
   )
 }

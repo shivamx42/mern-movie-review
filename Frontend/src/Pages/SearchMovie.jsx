@@ -55,7 +55,7 @@ export default function MovieDetails() {
         <ShowMovies movies={movies} />
 
         <div>
-          <Pagination totalPages={totalPages} moviePage={moviePage} setMoviePage={setMoviePage}/>
+          {movies.length!=0? <Pagination totalPages={totalPages} moviePage={moviePage} setMoviePage={setMoviePage}/> :""}
         </div>
       </div>
         

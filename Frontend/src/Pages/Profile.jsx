@@ -6,12 +6,20 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { updateUser,deleteOrLogoutUser } from '../redux/user/userSlice';
 import { FaHome } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip'
 import LoadingEffect from '../components/LoadingEffect';
 
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user);
+  const [isLoggedOut,setIsLoggedOut]=useState(false);
+
+  if(isLoggedOut) return(
+    <Navigate to="/" replace={true} />
+  )
+  if(!currentUser) return(
+    <Navigate to="/account"/>
+  )
 
   const fileRef = useRef();
   const [file, setFile] = useState(undefined);
@@ -128,7 +136,7 @@ export default function Profile() {
     const data = await res.json();
     if(res.status===200){
       toast.success(data.message);
-      navigate("/", { replace: true });
+      setIsLoggedOut(true);
     }
 
     
@@ -146,6 +154,7 @@ export default function Profile() {
     if(res.status===200){
       toast.success(data.message);
       dispatch(deleteOrLogoutUser());
+      navigate("/");
     }
 
     else toast(data.message);

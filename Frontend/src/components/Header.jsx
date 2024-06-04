@@ -20,6 +20,7 @@ export default function Header() {
 
   const location=useLocation();
   const isAbout = location.pathname === '/about';
+  const isReview = location.pathname === `/myReviews`
 
   return (
     <div className='flex justify-between items-center p-4 relative border-b border-black dark:border-[#d1d1e4] text-gray-600 dark:text-slate-50'>
@@ -36,13 +37,19 @@ export default function Header() {
             
           ) : (
             <Link to="/account">
-              <div className='font-semibold hover:text-slate-800 dark:hover:text-slate-50'>Sign In</div>
+              <div className='font-semibold hover:text-slate-800 dark:hover:text-slate-50'>Login</div>
             </Link>
           )}
           <HeaderItem title='Trending' param='fetchTrending'/>
           <HeaderItem title='Top Rated' param='fetchTopRated'/>
+
+          {currentUser?
+            (<Link to={`/myReviews`} className={`font-semibold ${isReview?'text-red-400 dark:text-red-500' : 'hover:text-slate-800 dark:hover:text-slate-50'}`}>
+              My Reviews
+            </Link>):""
+          }
           <Link to="/about" >
-            <p className={`font-semibold  ${isAbout?"text-red-400 hover:text-red-400": "hover:text-slate-800 dark:hover:text-slate-50"} `}>About</p>
+            <p className={`font-semibold  ${isAbout?'text-red-400 dark:text-red-500' : 'hover:text-slate-800 dark:hover:text-slate-50'} `}>About</p>
           </Link>
         </div>
       </div>
@@ -75,7 +82,7 @@ export default function Header() {
             ) : (
               <div className="menu-item">
                 <Link to="/account" onClick={toggleMenu} className="hover:text-slate-800 dark:hover:text-black font-semibold">
-                  Sign In
+                  Login
                 </Link>
               </div>
             )}
@@ -87,6 +94,15 @@ export default function Header() {
               <HeaderItem title='Top Rated' param='fetchTopRated'/>
 
             </div>
+            {currentUser?
+            
+              (<div className="menu-item">
+                <Link to={`/myReviews`} onClick={toggleMenu} className={`font-semibold ${isReview?"text-red-400 hover:text-red-400": "hover:text-slate-800 dark:hover:text-black"}`}>
+                  My Reviews
+                </Link>
+              </div>):""
+            
+            }
             <div className="menu-item ">
               <Link to="/about" onClick={toggleMenu} className={`font-semibold ${isAbout?"text-red-400 hover:text-red-400": "hover:text-slate-800 dark:hover:text-black"}`}>
                 About

@@ -8,11 +8,11 @@ import SearchMovie from "./Pages/SearchMovie"
 import Account from "./Pages/Account"
 import PrivateRoute from "./components/PrivateRoute"
 import ProfileComplete from "./components/ProfileComplete"
-import ReviewPrivateRoute from "./components/ReviewPrivateRoute"
 import AddReview from "./components/AddReview"
 import Header from "./components/Header"
 import ShowOneReview from "./Pages/ShowOneReview"
 import { Helmet } from "react-helmet"
+import UserReviews from "./Pages/UserReviews"
 
 
 function App() {
@@ -64,14 +64,15 @@ function App() {
     },
     {
       path:'/profile',
-      element:<PrivateRoute/>,
-      children:[
-        {path: "/profile",element: <ProfileComplete/>}
-      ]
+      element:(
+        <>
+          <ProfileComplete/>
+        </>
+      )
     },
     {
       path:'/addReview/:movieID',
-      element:<ReviewPrivateRoute/>,
+      element:<PrivateRoute navigateTo={"/account"}/>,
       children:[
         {path: "/addReview/:movieID",element: <AddReview/>}
       ]
@@ -86,7 +87,17 @@ function App() {
       </>
       )
       
-    }
+    },
+    {
+      path:'/myReviews',
+      element:<PrivateRoute navigateTo={"/"}/>,
+      children:[
+        {path: "/myReviews",element: <>
+          <Header/>
+          <UserReviews/>
+        </>}
+      ]
+    },
   ])
 
   return (

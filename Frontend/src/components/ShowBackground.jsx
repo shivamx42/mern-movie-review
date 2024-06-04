@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react'
 
-export default function ShowBackground({children, showBlur}) {
+export default function ShowBackground({children}) {
     const [bgImage, setBgImage] = useState("/img5.jpg");
-
+    
     useEffect(() => {
-      const images = ["/img1.jpg", "/img2.jpg", "/img3.jpg", "/img4.jpg", "/img5.jpg", "/img6.jpg", "/img7.jpg", "/img8.jpg", "/img9.jpg", "/img10.jpg"];
-      const changeBackgroundImage = () => {
+      const images = [
+        "/img1.jpg", "/img2.jpg", "/img3.jpg", "/img4.jpg", 
+        "/img5.jpg", "/img6.jpg", "/img7.jpg", "/img8.jpg", 
+        "/img9.jpg", "/img10.jpg"
+      ];
+  
+      const preloadImage = (src) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+        });
+      };
+  
+      const changeBackgroundImage = async () => {
         const randomImage = images[Math.floor(Math.random() * images.length)];
+        await preloadImage(randomImage);
         setBgImage(randomImage);
       };
   
-      const intervalId = setInterval(changeBackgroundImage, showBlur?30000:10000);
+      const intervalId = setInterval(changeBackgroundImage, 12000);
   
       return () => clearInterval(intervalId);
     }, []);
@@ -21,7 +35,7 @@ export default function ShowBackground({children, showBlur}) {
           style={{
             backgroundImage: `url(${bgImage})`,
             transition: "background-image ease-in-out",
-            transitionDuration:showBlur?"10s":"4.3s",
+            transitionDuration:"4.3s",
             position: "absolute",
             top: 0,
             left: 0,
@@ -31,7 +45,6 @@ export default function ShowBackground({children, showBlur}) {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             zIndex: 1,
-            filter: showBlur ? " grayscale(100%)" : "none",
             
           }}
         />
