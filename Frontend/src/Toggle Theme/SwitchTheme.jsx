@@ -2,11 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { IconMoon, IconSun } from './Icons';
 
 export default function SwitchTheme() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() => {
+    if (localStorage.getItem('userTheme')) {
+      return localStorage.getItem('userTheme');
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    } else {
+      return 'light';
+    }
+  });
+
   const [animate, setAnimate] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
+    localStorage.setItem('userTheme', theme);
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
     } else {

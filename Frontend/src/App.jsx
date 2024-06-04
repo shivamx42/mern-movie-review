@@ -13,6 +13,8 @@ import Header from "./components/Header"
 import ShowOneReview from "./Pages/ShowOneReview"
 import { Helmet } from "react-helmet"
 import UserReviews from "./Pages/UserReviews"
+import ForgotPassword from "./Pages/ForgotPassword"
+import ResetPassword from "./Pages/ResetPassword"
 
 
 function App() {
@@ -98,6 +100,26 @@ function App() {
         </>}
       ]
     },
+    {
+      path:'/forgot-password',
+      element:(
+
+      <>
+        <ForgotPassword/>
+      </>
+      )
+      
+    },
+    {
+      path:'/reset-password/:id/:token',
+      element:(
+
+      <>
+        <ResetPassword/>
+      </>
+      )
+      
+    }
   ])
 
   return (

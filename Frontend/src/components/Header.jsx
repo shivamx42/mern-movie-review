@@ -23,7 +23,7 @@ export default function Header() {
   const isReview = location.pathname === `/myReviews`
 
   return (
-    <div className='flex justify-between items-center p-4 relative border-b border-black dark:border-[#d1d1e4] text-gray-600 dark:text-slate-50'>
+    <div className='flex justify-between items-center p-4 relative border-b border-black dark:border-slate-50 text-gray-600 dark:text-slate-50'>
       <div className='flex gap-4 ml-4 '>
         <button className="sm:hidden" hidden={isMenuOpen} onClick={toggleMenu}>
           <HamburgerIcon />
@@ -32,7 +32,7 @@ export default function Header() {
         <div className='hidden sm:flex flex-row gap-4'>
           {currentUser ? (
             <div className="">
-            <img src={`${currentUser.pic}`} className="w-8 h-8 rounded-full object-cover hover:cursor-pointer border border-black dark:border-[#d1d1e4]" onClick={handleClick}/>
+            <img src={`${currentUser.pic}`} className="w-8 h-8 rounded-full object-cover hover:cursor-pointer border border-black dark:border-slate-50" onClick={handleClick}/>
             </div>
             
           ) : (
@@ -56,8 +56,8 @@ export default function Header() {
 
       <div className='flex items-center mr-4'>
         <Link to="/" className='mr-8'>
-          <span className=' font-bold bg-gray-300 py-2 px-2 rounded-lg dark:bg-slate-600 border border-black dark:border-[#d1d1e4] hover:bg-slate-300 dark:hover:bg-gray-600 transition-all duration-100 text-gray-700 dark:text-slate-50'>
-            FilmGalaxy
+          <span className=' font-bold bg-gray-300 py-2 px-2 rounded-lg dark:bg-slate-600 border border-black dark:border-slate-50 hover:bg-slate-300 dark:hover:bg-gray-600 transition-all duration-100 text-gray-700 dark:text-slate-50'>
+            Film<span className="text-red-500 ">Galaxy</span>
           </span>
         </Link>
         <SwitchTheme />
@@ -67,16 +67,16 @@ export default function Header() {
         <>
           <div className="menu-backdrop" onClick={toggleMenu}></div>
           <div className={`menu-container ${isMenuOpen ? 'open' : ''} dark:bg-[#1F201F]
-          dark:text-[#d1d1e4]`}>
+          dark:text-slate-50`}>
             <div className="menu-header">
-              <span className='font-bold'>Menu</span>
+              <span className='font-bold text-xl'>Menu</span>
               <button onClick={toggleMenu}>
                 <CrossIcon />
               </button>
             </div>
             {currentUser ? (
               <div className="menu-item flex gap-2 items-center justify-center hover:cursor-pointer" onClick={handleClick}>
-                <img src={`${currentUser.pic}`} className="w-8 h-8 rounded-full object-cover border border-black dark:border-[#d1d1e4]" />
+                <img src={`${currentUser.pic}`} className="w-8 h-8 rounded-full object-cover border border-black dark:border-slate-50" />
                 <span className="font-semibold">Profile</span>
               </div>
             ) : (

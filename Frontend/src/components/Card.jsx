@@ -16,7 +16,7 @@ export default function Card({ movie }) {
             alt='movie poster'
           ></img>
           <div className='p-2'>
-            <p className='line-clamp-2 text-md text-slate-700 dark:text-[#d1d1e4]'>{movie.overview}</p>
+            <p className='line-clamp-2 text-md text-slate-700 dark:text-slate-50'>{movie.overview}</p>
             <h2 className='text-lg font-bold truncate dark:text-white'>
               {movie.title || movie.name}
             </h2>

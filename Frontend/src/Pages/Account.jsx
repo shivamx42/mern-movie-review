@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
 import ShowBackground from '../components/ShowBackground';
@@ -92,10 +92,10 @@ export default function Account() {
     }
   };
 
+  const navigate=useNavigate();
   if (isLoggedIn || isRegistered) {
     return <Navigate to="/" replace={true} />;
   }
-
   return (
     <>
       <ShowBackground>
@@ -153,7 +153,9 @@ export default function Account() {
             </div>)}
             
           </form>
-          <div className="font-bold text-black/80 hover:text-black/90 ml-4 cursor-pointer duration-0 text-sm mt-6" >
+          <div className="font-bold text-black/80 hover:text-black/90 ml-4 cursor-pointer duration-0 text-sm mt-6" 
+          onClick={(e)=>navigate("/forgot-password")}
+            >
             Forgot Password?
           </div>
         </div>
