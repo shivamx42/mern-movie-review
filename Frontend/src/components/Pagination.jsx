@@ -16,7 +16,7 @@ export default function Pagination({totalPages, moviePage, setMoviePage}) {
               key={i}
               onClick={() => handlePageClick(i)}
             >
-            <div className={`${moviePage===i? `text-red-400 font-bold`:``}`}>
+            <div className={`${moviePage===i? `text-red-400 font-bold dark:text-red-600`:`dark:text-slate-50`}`}>
               {i}
             </div>
             </button>
