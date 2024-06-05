@@ -25,7 +25,7 @@ export default function AddReview() {
       
       const res= await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${key}&language=en-US`);
       const data = await res.json();
-      setTitle(data.original_title);
+      setTitle(data.title);
     };
 
     fetchData();
