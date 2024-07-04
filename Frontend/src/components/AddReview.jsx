@@ -31,7 +31,6 @@ export default function AddReview() {
     fetchData();
   }, []);
 
-  console.log(title);
 
   const navigate=useNavigate();
   const handleSubmit = async(e) => {

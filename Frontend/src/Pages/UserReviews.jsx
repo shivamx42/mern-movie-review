@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadingEffect from '../components/LoadingEffect';
+import { deleteOrLogoutUser } from "../redux/user/userSlice";
+import { toast } from "react-toastify";
 
 
 
@@ -12,13 +14,20 @@ export default function UserReviews() {
   const  {currentUser}  = useSelector(state => state.user);
   const userID=currentUser._id
 
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   useEffect(() => {
     const getReviews = async () => {
       setLoading(true);
       const res = await fetch(`/api/reviews/getUserReviews/${userID}`);
-      if (!res) return;
       const data = await res.json();
+      if (res.status!==200){ 
+        toast.error(data.message);
+        dispatch(deleteOrLogoutUser());
+        return;
+      }
+
       setUserReviews(data);
       setLoading(false);
     };
@@ -26,7 +35,6 @@ export default function UserReviews() {
     getReviews();
   }, []);
 
-  const navigate=useNavigate();
 
   if(loading){
     return <div className="pt-20">

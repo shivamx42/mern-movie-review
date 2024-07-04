@@ -29,7 +29,6 @@ export default function ShowOneReview() {
     fetchData();
   }, []);
 
-  console.log({review,movieId,reviewBy,movieTitle})
 
   if(location.state==null){
     return (<h1 className='text-center pt-48 text-2xl font-bold text-gray-600 dark:text-slate-50'>Review Not Available!</h1>)

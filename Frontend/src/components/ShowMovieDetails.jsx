@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MovieReviews from './MovieReviews';
 import PlayTrailer from "./PlayTrailer"
-import { FaPlay } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 import { Tooltip } from 'react-tooltip'
 
 
@@ -28,7 +28,6 @@ export default function ShowMovieDetails({movie}) {
     fetchVideos();
   },[])
 
-  console.log(trailerId);
   
 
   const imageRef = useRef(null);
@@ -84,11 +83,9 @@ export default function ShowMovieDetails({movie}) {
                   <div data-tooltip-id="my-tooltip" data-tooltip-content="Watch Trailer" >
                     <button
                     onClick={()=>setToPlayTrailer(true)}
-                    className="px-4 py-2 bg-[#FF0101] text-[#FEFFFE] font-semibold rounded-md transition-transform duration-300 hover:scale-105"
+                    className="px-2 py-2  transition-transform duration-300 hover:scale-105"
                     >
-                    <FaPlay 
-                      size={10}
-                    />
+                    <FaYoutube color='red' size={30}/>
                     </button>
                   <Tooltip id="my-tooltip" />
                 </div>
